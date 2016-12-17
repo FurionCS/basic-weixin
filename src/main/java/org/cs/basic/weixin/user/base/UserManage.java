@@ -11,26 +11,30 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.cs.basic.weixin.common.HttpClientConnectionManager;
 import org.cs.basic.weixin.user.model.WxUser;
+
+
+
+
 import org.cs.basic.weixin.user.model.WxUserClump;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * ¹Ø×¢Õß¹ÜÀíÀà
+ * å…³æ³¨è€…ç®¡ç†ç±»
  * @author xuxile 
  * */
 public class UserManage {
-	// http¿Í»§¶Ë
+	// httpå®¢æˆ·ç«¯
 	public static DefaultHttpClient httpclient;
 	
 	static {
 		httpclient = new DefaultHttpClient();
-		httpclient = (DefaultHttpClient) HttpClientConnectionManager.getSSLInstance(httpclient); // ½ÓÊÜÈÎºÎÖ¤ÊéµÄä¯ÀÀÆ÷¿Í»§¶Ë
+		httpclient = (DefaultHttpClient) HttpClientConnectionManager.getSSLInstance(httpclient); // æ¥å—ä»»ä½•è¯ä¹¦çš„æµè§ˆå™¨å®¢æˆ·ç«¯
 	}
 	
 	/**
-	 * »ñÈ¡¹Ø×¢Õß»ù±¾ĞÅÏ¢
+	 * è·å–å…³æ³¨è€…åŸºæœ¬ä¿¡æ¯
 	 * @throws Exception
 	 */
 	public static WxUser getUserInfo(String OpenID,String accessToken) throws Exception{
@@ -41,25 +45,25 @@ public class UserManage {
 		JSONObject object = JSON.parseObject(jsonStr);
 		String sex=object.getString("sex");
 		if("1".equals(sex)){
-			sex="ÄĞ";
+			sex="ç”·";
 		}else if ("2".equals(sex)) {
-			sex="Å®";
+			sex="å¥³";
 		}else if ("0".equals(sex)) {
-			sex="Î´Öª";
+			sex="æœªçŸ¥";
 		}
 		String language=object.getString("language");
 		if("zh_CN".equals(language)){
-			language="¼òÌå";
+			language="ç®€ä½“";
 		}else if ("zh_TW".equals(language)) {
-			language="·±Ìå";
+			language="ç¹ä½“";
 		}else if ("en".equals(language)) {
-			language="Ó¢Óï";
+			language="è‹±è¯­";
 		}
 		String subscribe=object.getString("subscribe");
 		if("0".equals(subscribe)){
-			subscribe="Î´¶©ÔÄ";
+			subscribe="æœªè®¢é˜…";
 		}else{
-			subscribe="ÒÑ¶©ÔÄ";
+			subscribe="å·²è®¢é˜…";
 		}
 		String subscribeTime=object.getString("subscribe_time");
 		
@@ -81,8 +85,8 @@ public class UserManage {
 	}
 	
 	/**
-	 * Ò»´ÎĞÔÀ­È¡»ñÈ¡¹Ø×¢ÕßÁĞ±í ×î¶àÀ­È¡10000¸ö¹Ø×¢ÕßĞÅÏ¢
-	 * @param NEXT_OPENID À­È¡ÁĞ±íµÄºóÒ»¸öÓÃ»§µÄOPENID
+	 * ä¸€æ¬¡æ€§æ‹‰å–è·å–å…³æ³¨è€…åˆ—è¡¨ æœ€å¤šæ‹‰å–10000ä¸ªå…³æ³¨è€…ä¿¡æ¯
+	 * @param NEXT_OPENID æ‹‰å–åˆ—è¡¨çš„åä¸€ä¸ªç”¨æˆ·çš„OPENID
 	 */
 	public static WxUserClump getUserList(String NEXT_OPENID,String accessToken) throws Exception{
 		String url="https://api.weixin.qq.com/cgi-bin/user/get?access_token="+accessToken;
@@ -113,14 +117,14 @@ public class UserManage {
 	}
 	
 	/**
-	 * »ñÈ¡È«²¿¹Ø×¢ÕßÁĞ±í
-	 * @param NEXT_OPENID À­È¡ÁĞ±íµÄºóÒ»¸öÓÃ»§µÄOPENID
+	 * è·å–å…¨éƒ¨å…³æ³¨è€…åˆ—è¡¨
+	 * @param NEXT_OPENID æ‹‰å–åˆ—è¡¨çš„åä¸€ä¸ªç”¨æˆ·çš„OPENID
 	 */
 	public static WxUserClump getAllUserList(String accessToken) throws Exception{
-		int total=0;//¹Ø×¢¸Ã¹«ÖÚÕËºÅµÄ×ÜÓÃ»§Êı
-		int count=0;//À­È¡µÄOPENID¸öÊı£¬×î´óÖµÎª10000
-		String nextOpenid=null;//À­È¡ÁĞ±íµÄºóÒ»¸öÓÃ»§µÄOPENID
-		List<WxUser> wxUsers=new ArrayList<WxUser>();//ÓÃ»§¼¯ºÏ
+		int total=0;//å…³æ³¨è¯¥å…¬ä¼—è´¦å·çš„æ€»ç”¨æˆ·æ•°
+		int count=0;//æ‹‰å–çš„OPENIDä¸ªæ•°ï¼Œæœ€å¤§å€¼ä¸º10000
+		String nextOpenid=null;//æ‹‰å–åˆ—è¡¨çš„åä¸€ä¸ªç”¨æˆ·çš„OPENID
+		List<WxUser> wxUsers=new ArrayList<WxUser>();//ç”¨æˆ·é›†åˆ
 		while (nextOpenid==null||!"".equals(nextOpenid)) {
 				WxUserClump clump=getUserList(nextOpenid, accessToken);
 				if(clump.getWxUsers()!=null){
