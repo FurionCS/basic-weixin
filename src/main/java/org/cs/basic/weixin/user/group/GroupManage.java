@@ -23,22 +23,22 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 用户分组信息管理�?
+ * 用户分组信息管理类
  * @author xuxile 
  * */
 public class GroupManage {
-	// http客户�?
+	// http客户端
 	public static DefaultHttpClient httpclient;
 	
 	static {
 		httpclient = new DefaultHttpClient();
-		httpclient = (DefaultHttpClient) HttpClientConnectionManager.getSSLInstance(httpclient); // 接受任何证书的浏览器客户�?
+		httpclient = (DefaultHttpClient) HttpClientConnectionManager.getSSLInstance(httpclient); // 接受任何证书的浏览器客户端
 	}
 	
 	/**
 	 * 创建用户分组
 	 * @param text 分组名称 
-	 * @param  accessToken 微信验证�?
+	 * @param  accessToken 微信验证码
 	 */
 	public static GroupUpdateBase createGroup(String text,String accessToken) throws Exception{
 		GroupCreateBase group=new GroupCreateBase(text);
@@ -58,14 +58,14 @@ public class GroupManage {
 	
 	
 	/**
-	 * 查询分组
-	 * @param  accessToken 微信验证�?
+	 * 查询所有分组
+	 * @param  accessToken 微信验证码
 	 */
 	public static List<GroupAllSortBase> getGroups(String accessToken) throws Exception{
 		HttpPost httpost= HttpClientConnectionManager.getPostMethod("https://api.weixin.qq.com/cgi-bin/groups/get?access_token=" + accessToken);
 		HttpResponse response=httpclient.execute(httpost);
 		String jsonStr= EntityUtils.toString(response.getEntity(), "utf-8");
-		//将查询结果封装到List集合�?��
+		//将查询结果封装到List集合开始
 		JSONObject object = JSON.parseObject(jsonStr);
 		String groupsString=object.getString("groups");
 		JSONArray jsonArr = JSONArray.fromObject(groupsString);
@@ -82,9 +82,9 @@ public class GroupManage {
 
 	
 	/**
-	 * 查询用户�?��分组
-	 * @param OpenID 用户微信�?��ID
-	 * @param accessToken 微信验证�?
+	 * 查询用户所在分组
+	 * @param OpenID 用户微信开放ID
+	 * @param accessToken 微信验证码
 	 */
 	public static String getUserGroupId(String OpenID,String accessToken) throws Exception{
 		GroupQueryUserVo groupQueryUserVo=new GroupQueryUserVo(OpenID);
@@ -100,10 +100,10 @@ public class GroupManage {
 	
 	
 	/**
-	 * 修改分组�?
-	 * @param accessToken 微信验证�?
+	 * 修改分组名
+	 * @param accessToken 微信验证码
 	 * @param id 分组id，由微信分配
-	 * @param name 分组名字�?0个字符以内）
+	 * @param name 分组名字（30个字符以内）
 	 */
 	public static String updateGroupNamebyId(String id,String name,String accessToken) throws Exception{
 		GroupUpdateBase group=new GroupUpdateBase(id, name);
