@@ -12,7 +12,7 @@ import org.junit.Test;
 public class TestAdviceByGroup {
 	@Test
 	public void testSendTextbyGroup() throws Exception{
-		/*String accessToken=AccessToken.getAccessToken("wxee3c721dfbbfe208", "7b350f238c7e8cf1d30c30699fb0f754");
+		/*String accessToken=AccessToken.getAccessToken("", "");
 		System.out.println(accessToken);
 		List<GroupAllSortBase> gasb=GroupManage.getGroups(accessToken);
 		for(GroupAllSortBase g:gasb){

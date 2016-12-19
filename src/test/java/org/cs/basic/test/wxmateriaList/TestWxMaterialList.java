@@ -13,7 +13,7 @@ public class TestWxMaterialList {
 	
 	@Test
 	public void testGetMaterialList() throws Exception{
-	/*	String accessToken=AccessToken.getAccessToken("wxee3c721dfbbfe208", "7b350f238c7e8cf1d30c30699fb0f754");
+	/*	String accessToken=AccessToken.getAccessToken("", "");
 		System.out.println(accessToken);
 		JSONObject obj=WxMaterialList.getMaterialList("image", "8", "2", accessToken);
 		JSONArray jsonArray=new JSONArray((List<Object>) obj.get("item"));
