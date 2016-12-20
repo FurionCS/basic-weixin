@@ -14,6 +14,7 @@ import org.cs.basic.weixin.oauth.OAuthManage;
 import org.cs.basic.weixin.qr.QrManage;
 import org.cs.basic.weixin.server.ServerTruth;
 import org.cs.basic.weixin.server.ServerWeiXin;
+import org.cs.basic.weixin.template.Template;
 import org.cs.basic.weixin.tools.aibang.AiBangBusStation;
 import org.cs.basic.weixin.tools.baidu.baike.BaiduBaikeCrawler;
 import org.cs.basic.weixin.tools.baidu.map.PositionTools;
@@ -43,6 +44,7 @@ public class Demo {
 		 System.out.println(AdviceByGroup.class+"："+"根据分组进行群发信息类");
 		 System.out.println(AdviceByOpenID.class+"："+"根据OpenID进行群发信息类");
 		 System.out.println(AdviceDelete.class+"："+"删除群发信息类");
+		 System.out.println(Template.class+"："+"模板消息操作类");
 		 System.out.println(OAuthManage.class+"："+"微信网页授权管理类");
 		 System.out.println(QrManage.class+"："+"生成带参数的二维码");
 		 System.out.println(ServerTruth.class+"："+"验证消息真实性");

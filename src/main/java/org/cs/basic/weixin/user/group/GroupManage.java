@@ -1,22 +1,26 @@
 package org.cs.basic.weixin.user.group;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.json.JSONArray;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.cs.basic.weixin.common.HttpClientConnectionManager;
 import org.cs.basic.weixin.user.group.model.GroupCreateVo;
+import org.cs.basic.weixin.user.group.model.GroupDeleteVo;
 import org.cs.basic.weixin.user.group.model.GroupMoveUserVo;
 import org.cs.basic.weixin.user.group.model.GroupQueryUserVo;
 import org.cs.basic.weixin.user.group.model.GroupUpdateVo;
 import org.cs.basic.weixin.user.group.util.GroupAllSortBase;
 import org.cs.basic.weixin.user.group.util.GroupCreateBase;
+import org.cs.basic.weixin.user.group.util.GroupDeleteBase;
 import org.cs.basic.weixin.user.group.util.GroupUpdateBase;
 
 import com.alibaba.fastjson.JSON;
@@ -133,5 +137,17 @@ public class GroupManage {
 		JSONObject obj = JSON.parseObject(jsonStr);
 		String errcode=obj.getString("errcode");
 		return errcode;
+	}
+	
+	public static String deleteUserGroup(String id,String accessToken) throws ClientProtocolException, IOException{
+		GroupDeleteVo gdv=new GroupDeleteVo(new GroupDeleteBase(id));
+		String delete_json=net.sf.json.JSONObject.fromObject(gdv).toString();
+		HttpPost httpost = HttpClientConnectionManager.getPostMethod("https://api.weixin.qq.com/cgi-bin/groups/delete?access_token=" + accessToken);
+		httpost.setEntity(new StringEntity(delete_json, "UTF-8"));
+		HttpResponse response= httpclient.execute(httpost);
+		String jsonStr= EntityUtils.toString(response.getEntity(), "utf-8");
+		JSONObject obj = JSON.parseObject(jsonStr);
+		String errcode=obj.getString("errcode");
+		return accessToken;
 	}
 }
